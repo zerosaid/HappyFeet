@@ -8,9 +8,8 @@ package happyfeet.controller;
  *
  * @author Prog. Junior Daniel
  */
-package happyfeet.controller;
 
-import happyfeet.model.Raza;
+import happyfeet.Model.Raza;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

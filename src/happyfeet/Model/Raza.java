@@ -15,7 +15,7 @@ public class Raza {
     private int especieId;
 
     // Constructor
-    public Raza(int id, String nombre, int especieId) {
+    public Raza(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
         this.especieId = especieId;

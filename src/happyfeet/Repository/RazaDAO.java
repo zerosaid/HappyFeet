@@ -42,9 +42,7 @@ public class RazaDAO implements IRazaRepository {
             while (rs.next()) {
                 Raza r = new Raza(
                     rs.getInt("id"),
-                    rs.getString("nombre"),
-                    rs.getInt("especie_id")
-                );
+                    rs.getString("nombre"));
                 lista.add(r);
             }
         } catch (SQLException e) {
@@ -64,9 +62,7 @@ public class RazaDAO implements IRazaRepository {
             if (rs.next()) {
                 return new Raza(
                     rs.getInt("id"),
-                    rs.getString("nombre"),
-                    rs.getInt("especie_id")
-                );
+                    rs.getString("nombre"));
             }
         } catch (SQLException e) {
             System.err.println("❌ Error al obtener raza por ID: " + e.getMessage());

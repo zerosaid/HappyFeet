@@ -65,7 +65,7 @@ public class MascotaView {
         System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
         String fechaNacimiento = scanner.nextLine();
 
-        System.out.print("Sexo (M/F): ");
+        System.out.print("Sexo (Macho/Hembra): ");
         String sexo = scanner.nextLine();
 
         System.out.print("URL de la foto: ");
