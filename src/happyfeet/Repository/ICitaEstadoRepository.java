@@ -4,18 +4,27 @@
  */
 package happyfeet.Repository;
 
+import happyfeet.Model.CitaEstado;
+import java.util.List;
+
 /**
  *
  * @author Prog. Junior Daniel
  */
-import happyfeet.Model.CitaEstado;
-import java.util.List;
-
 public interface ICitaEstadoRepository {
-    boolean agregar(CitaEstado estado);
-    List<CitaEstado> obtenerTodos();
+    
+    // Crear nuevo estado de cita
+    void agregar(CitaEstado citaEstado);
+    
+    // Obtener un estado de cita por su ID
     CitaEstado obtenerPorId(int id);
-    boolean actualizar(CitaEstado estado);
-    boolean eliminar(int id);
+    
+    // Listar todos los estados de cita
+    List<CitaEstado> listarTodos();
+    
+    // Actualizar un estado existente
+    void actualizar(CitaEstado citaEstado);
+    
+    // Eliminar un estado por ID
+    void eliminar(int id);
 }
-
