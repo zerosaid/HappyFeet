@@ -9,17 +9,14 @@ import happyfeet.util.conexionBD;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-/**
- *
- * @author Prog. Junior Daniel
- */
+
 public class EspecieDAO implements IEspecieRepository {
 
     private final conexionBD conexionBD = new conexionBD();
 
     @Override
     public boolean agregar(Especie especie) {
-        String sql = "INSERT INTO especie (nombre) VALUES (?)";
+        String sql = "INSERT INTO especies (nombre) VALUES (?)"; // ✅ plural
         try (Connection conn = conexionBD.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, especie.getNombre());
@@ -32,7 +29,7 @@ public class EspecieDAO implements IEspecieRepository {
 
     @Override
     public Especie buscarPorId(int id) {
-        String sql = "SELECT * FROM especie WHERE id=?";
+        String sql = "SELECT * FROM especies WHERE id=?"; // ✅ plural
         try (Connection conn = conexionBD.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -49,7 +46,7 @@ public class EspecieDAO implements IEspecieRepository {
     @Override
     public List<Especie> listar() {
         List<Especie> especies = new ArrayList<>();
-        String sql = "SELECT * FROM especie";
+        String sql = "SELECT * FROM especies"; // ✅ plural
         try (Connection conn = conexionBD.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -64,7 +61,7 @@ public class EspecieDAO implements IEspecieRepository {
 
     @Override
     public boolean actualizar(Especie especie) {
-        String sql = "UPDATE especie SET nombre=? WHERE id=?";
+        String sql = "UPDATE especies SET nombre=? WHERE id=?"; // ✅ plural
         try (Connection conn = conexionBD.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, especie.getNombre());
@@ -78,7 +75,7 @@ public class EspecieDAO implements IEspecieRepository {
 
     @Override
     public boolean eliminar(int id) {
-        String sql = "DELETE FROM especie WHERE id=?";
+        String sql = "DELETE FROM especies WHERE id=?"; // ✅ plural
         try (Connection conn = conexionBD.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);

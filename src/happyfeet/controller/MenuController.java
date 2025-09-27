@@ -4,6 +4,7 @@
  */
 package happyfeet.controller;
 
+import happyfeet.view.CitaView;
 import happyfeet.view.DuenoView;
 import happyfeet.view.MascotaView;
 import happyfeet.view.RazaView;
@@ -18,18 +19,28 @@ public class MenuController {
     // Método que abre la gestión de Dueños
     public void abrirGestionDuenos() {
         DuenoView duenoView = new DuenoView();
-        duenoView.mostrarMenu(); // asumimos que DuenoView tiene su propio menú
+        DuenoController duenoController = new DuenoController(duenoView);
+        duenoView.setController(duenoController);
+        duenoView.mostrarMenu();
     }
 
     // Método que abre la gestión de Mascotas
     public void abrirGestionMascotas() {
         MascotaView mascotaView = new MascotaView();
-        mascotaView.mostrarMenu(); // asumimos que MascotaView tiene su propio menú
+        mascotaView.mostrarMenu();
     }
 
     // Método que abre la gestión de Razas
     public void abrirGestionRazas() {
         RazaView razaView = new RazaView();
-        razaView.mostrarMenu(); // asumimos que RazaView tiene su propio menú
+        razaView.mostrarMenu();
     }
+    
+    public void abrirGestionCitas() {
+    CitaView citaView = new CitaView();
+    CitaController controller = new CitaController(citaView);
+    citaView.setController(controller);
+    citaView.mostrarMenu();
+}
+
 }

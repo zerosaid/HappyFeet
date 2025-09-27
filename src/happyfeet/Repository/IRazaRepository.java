@@ -17,4 +17,5 @@ public interface IRazaRepository {
     Raza obtenerPorId(int id);
     boolean actualizar(Raza raza);
     boolean eliminar(int id);
+    List<Raza> obtenerPorEspecie(int especieId);
 }

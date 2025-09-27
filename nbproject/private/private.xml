@@ -4,8 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Prog.%20Junior%20Daniel/Documents/NetBeansProjects/HappyFeet/src/happyfeet/HappyFeet.java</file>
-            <file>file:/C:/Users/Prog.%20Junior%20Daniel/Documents/NetBeansProjects/HappyFeet/src/happyfeet/controller/MenuController.java</file>
-            <file>file:/C:/Users/Prog.%20Junior%20Daniel/Documents/NetBeansProjects/HappyFeet/src/happyfeet/view/ConsoleMenuView.java</file>
+            <file>file:/C:/Users/Prog.%20Junior%20Daniel/Documents/NetBeansProjects/HappyFeet/src/happyfeet/Model/Cita.java</file>
+            <file>file:/C:/Users/Prog.%20Junior%20Daniel/Documents/NetBeansProjects/HappyFeet/src/happyfeet/view/CitaView.java</file>
+            <file>file:/C:/Users/Prog.%20Junior%20Daniel/Documents/NetBeansProjects/HappyFeet/src/happyfeet/Repository/CitaDAO.java</file>
+            <file>file:/C:/Users/Prog.%20Junior%20Daniel/Documents/NetBeansProjects/HappyFeet/src/happyfeet/controller/CitaController.java</file>
+            <file>file:/C:/Users/Prog.%20Junior%20Daniel/Documents/NetBeansProjects/HappyFeet/src/happyfeet/service/CitaService.java</file>
+            <file>file:/C:/Users/Prog.%20Junior%20Daniel/Documents/NetBeansProjects/HappyFeet/src/happyfeet/Repository/CitaEstadoDAO.java</file>
+            <file>file:/C:/Users/Prog.%20Junior%20Daniel/Documents/NetBeansProjects/HappyFeet/src/happyfeet/util/conexionBD.java</file>
         </group>
     </open-files>
 </project-private>

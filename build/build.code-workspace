@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"name": "build",
+			"path": "."
+		},
+		{
+			"name": "nbproject",
+			"path": "../nbproject"
+		},
+		{
+			"name": "dist",
+			"path": "../dist"
+		},
+		{
+			"name": "src",
+			"path": "../src"
+		},
+		{
+			"name": "HappyFeet",
+			"path": "../../../../Desktop/HappyFeet"
+		}
+	],
+	"settings": {}
+}

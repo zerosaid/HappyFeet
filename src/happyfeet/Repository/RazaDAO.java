@@ -9,6 +9,7 @@ import happyfeet.util.conexionBD;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author Prog. Junior Daniel
@@ -42,7 +43,9 @@ public class RazaDAO implements IRazaRepository {
             while (rs.next()) {
                 Raza r = new Raza(
                     rs.getInt("id"),
-                    rs.getString("nombre"));
+                    rs.getString("nombre"),
+                    rs.getInt("especie_id") // ✅ ahora carga la especie
+                );
                 lista.add(r);
             }
         } catch (SQLException e) {
@@ -62,7 +65,9 @@ public class RazaDAO implements IRazaRepository {
             if (rs.next()) {
                 return new Raza(
                     rs.getInt("id"),
-                    rs.getString("nombre"));
+                    rs.getString("nombre"),
+                    rs.getInt("especie_id") // ✅ ahora carga la especie
+                );
             }
         } catch (SQLException e) {
             System.err.println("❌ Error al obtener raza por ID: " + e.getMessage());
@@ -100,5 +105,27 @@ public class RazaDAO implements IRazaRepository {
             System.err.println("❌ Error al eliminar raza: " + e.getMessage());
             return false;
         }
+    }
+
+    // ✅ Método extra para listar razas por especie
+    public List<Raza> obtenerPorEspecie(int especieId) {
+    List<Raza> razas = new ArrayList<>();
+        String sql = "SELECT * FROM razas WHERE especie_id = ?";
+        try (Connection conn = conexionBD.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, especieId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Raza raza = new Raza(
+                    rs.getInt("id"),
+                    rs.getString("nombre"),
+                    rs.getInt("especie_id")
+                );
+                razas.add(raza);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al listar razas por especie: " + e.getMessage());
+        }
+        return razas;
     }
 }

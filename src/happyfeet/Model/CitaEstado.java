@@ -8,25 +8,19 @@ package happyfeet.Model;
  *
  * @author Prog. Junior Daniel
  */
-public class Raza {
+public class CitaEstado {
+    
     private int id;
     private String nombre;
-    private int especieId;
 
-    // Constructor completo
-    public Raza(int id, String nombre, int especieId) {
+    public CitaEstado() {
+    }
+
+    public CitaEstado(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-        this.especieId = especieId;
     }
 
-    // Constructor sin ID (útil para insertar antes de asignar clave autoincremental)
-    public Raza(String nombre, int especieId) {
-        this.nombre = nombre;
-        this.especieId = especieId;
-    }
-
-    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -43,17 +37,11 @@ public class Raza {
         this.nombre = nombre;
     }
 
-    public int getEspecieId() {
-        return especieId;
-    }
-
-    public void setEspecieId(int especieId) {
-        this.especieId = especieId;
-    }
-
     @Override
     public String toString() {
-        return id + " - " + nombre + " (Especie ID: " + especieId + ")";
+        return "CitaEstado{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                '}';
     }
 }
-

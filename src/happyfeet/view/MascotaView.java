@@ -4,8 +4,13 @@
  */
 package happyfeet.view;
 
+import happyfeet.Model.Especie;
 import happyfeet.Model.Mascota;
+import happyfeet.Model.Raza;
+import happyfeet.controller.EspecieController;
 import happyfeet.controller.MascotaController;
+import happyfeet.controller.RazaController;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,10 +21,14 @@ import java.util.Scanner;
 public class MascotaView {
 
     private final MascotaController controller;
+    private final EspecieController especieController;
+    private final RazaController razaController;
     private final Scanner scanner;
 
     public MascotaView() {
         this.controller = new MascotaController();
+        this.especieController = new EspecieController();
+        this.razaController = new RazaController();
         this.scanner = new Scanner(System.in);
     }
 
@@ -51,32 +60,105 @@ public class MascotaView {
 
     private void registrarMascota() {
         System.out.println("\n--- Registrar Mascota ---");
-        System.out.print("ID del dueño: ");
-        int duenoId = scanner.nextInt();
-        scanner.nextLine();
 
-        System.out.print("Nombre: ");
-        String nombre = scanner.nextLine();
+        try {
+            // Pedir dueño
+            System.out.print("ID del dueño: ");
+            int duenoId = scanner.nextInt();
+            scanner.nextLine(); // limpiar buffer
 
-        System.out.print("ID de raza: ");
-        int razaId = scanner.nextInt();
-        scanner.nextLine();
+            // Pedir nombre
+            System.out.print("Nombre: ");
+            String nombre = scanner.nextLine().trim();
 
-        System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
-        String fechaNacimiento = scanner.nextLine();
+            if (nombre.isEmpty()) {
+                System.out.println("❌ El nombre no puede estar vacío.");
+                return;
+            }
 
-        System.out.print("Sexo (Macho/Hembra): ");
-        String sexo = scanner.nextLine();
+            // 1. Mostrar especies
+            List<Especie> especies = especieController.listarEspecies();
+            if (especies == null || especies.isEmpty()) {
+                System.out.println("❌ No hay especies registradas. Registre una especie primero.");
+                return;
+            }
 
-        System.out.print("URL de la foto: ");
-        String urlFoto = scanner.nextLine();
+            System.out.println("\nEspecies disponibles:");
+            especies.forEach(e -> System.out.println(e.getId() + ". " + e.getNombre()));
 
-        Mascota mascota = new Mascota(0, duenoId, nombre, razaId, fechaNacimiento, sexo, urlFoto);
-        boolean exito = controller.agregarMascota(mascota);
+            System.out.print("Seleccione el ID de la especie: ");
+            int especieId = scanner.nextInt();
+            scanner.nextLine();
 
-        System.out.println(exito ? "✅ Mascota registrada con éxito." : "❌ Error al registrar la mascota.");
+            Especie especieSeleccionada = especies.stream()
+                    .filter(e -> e.getId() == especieId)
+                    .findFirst()
+                    .orElse(null);
+
+            if (especieSeleccionada == null) {
+                System.out.println("❌ Especie inválida.");
+                return;
+            }
+
+            // 2. Mostrar razas de esa especie
+            List<Raza> razas = razaController.listarPorEspecie(especieId);
+            if (razas == null || razas.isEmpty()) {
+                System.out.println("❌ No hay razas registradas para esta especie.");
+                return;
+            }
+
+            System.out.println("\nRazas disponibles para " + especieSeleccionada.getNombre() + ":");
+            razas.forEach(r -> System.out.println(r.getId() + ". " + r.getNombre()));
+
+            System.out.print("Seleccione el ID de la raza: ");
+            int razaId = scanner.nextInt();
+            scanner.nextLine();
+
+            Raza razaSeleccionada = razas.stream()
+                    .filter(r -> r.getId() == razaId)
+                    .findFirst()
+                    .orElse(null);
+
+            if (razaSeleccionada == null) {
+                System.out.println("❌ Raza inválida.");
+                return;
+            }
+
+            // Datos adicionales
+            System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
+            String fechaNacimiento = scanner.nextLine().trim();
+
+            System.out.print("Sexo (Macho/Hembra): ");
+            String sexo = scanner.nextLine().trim();
+
+            if (!(sexo.equalsIgnoreCase("Macho") || sexo.equalsIgnoreCase("Hembra"))) {
+                System.out.println("❌ Sexo inválido. Debe ser 'Macho' o 'Hembra'.");
+                return;
+            }
+
+            System.out.print("URL de la foto: ");
+            String urlFoto = scanner.nextLine().trim();
+
+            // Crear objeto mascota
+            Mascota mascota = new Mascota(
+                    0, // id autoincremental
+                    duenoId,
+                    nombre,
+                    razaId,
+                    fechaNacimiento,
+                    sexo,
+                    urlFoto
+            );
+
+            // Guardar
+            boolean exito = controller.agregarMascota(mascota);
+            System.out.println(exito ? "✅ Mascota registrada con éxito." : "❌ Error al registrar la mascota.");
+
+        } catch (InputMismatchException e) {
+            System.out.println("⚠️ Entrada inválida. Asegúrese de ingresar números donde corresponde.");
+            scanner.nextLine(); // limpiar buffer para evitar bucles infinitos
+        }
     }
-
     private void listarMascotas() {
         System.out.println("\n--- Lista de Mascotas ---");
         List<Mascota> mascotas = controller.obtenerMascotas();
@@ -100,7 +182,7 @@ public class MascotaView {
         Mascota mascota = controller.obtenerMascotaPorId(id);
         if (mascota != null) {
             System.out.println("✅ Mascota encontrada:");
-            System.out.println(mascota); // Usa el toString() de Mascota
+            System.out.println(mascota);
         } else {
             System.out.println("❌ No se encontró ninguna mascota con ese ID.");
         }
