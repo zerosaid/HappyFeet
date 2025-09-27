@@ -28,6 +28,7 @@ public class ConsoleMenuView {
             System.out.println("1. Gestión de Dueños");
             System.out.println("2. Gestión de Mascotas");
             System.out.println("3. Gestión de Razas");
+            System.out.println("4. Gestión de Citas"); // 👈 nueva opción
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextLine().trim();
@@ -36,6 +37,7 @@ public class ConsoleMenuView {
                 case "1" -> controller.abrirGestionDuenos();
                 case "2" -> controller.abrirGestionMascotas();
                 case "3" -> controller.abrirGestionRazas();
+                case "4" -> controller.abrirGestionCitas(); // 👈 llamada al controlador de citas
                 case "0" -> System.out.println("👋 Saliendo del sistema...");
                 default -> System.out.println("❌ Opción inválida. Debe ser un número válido.");
             }

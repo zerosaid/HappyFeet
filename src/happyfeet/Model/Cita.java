@@ -11,70 +11,53 @@ import java.time.LocalDateTime;
  * @author Prog. Junior Daniel
  */
 public class Cita {
-    
     private int id;
-    private int mascotaId;         // FK hacia Mascota
-    private LocalDateTime fechaHora;
+    private LocalDateTime fechaHora; // datetime completo
+    private int mascotaId;
     private String motivo;
-    private int estadoId;          // FK hacia cita_estados
+    private int estadoId;
 
-    public Cita(int aInt, String string, LocalDateTime toLocalDateTime, int aInt1, int aInt2) {
-    }
+    public Cita() {}
 
-    public Cita(int id, String motivo, LocalDateTime  fechaHora, int mascotaId, int estadoId, String motivo1, String estado) {
+    // Constructor completo (id incluido)
+    public Cita(int id, LocalDateTime fechaHora, int mascotaId, String motivo, int estadoId) {
         this.id = id;
-        this.mascotaId = mascotaId;
         this.fechaHora = fechaHora;
+        this.mascotaId = mascotaId;
         this.motivo = motivo;
         this.estadoId = estadoId;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getMascotaId() {
-        return mascotaId;
-    }
-
-    public void setMascotaId(int mascotaId) {
-        this.mascotaId = mascotaId;
-    }
-
-    public LocalDateTime getFechaHora() {
-        return fechaHora;
-    }
-
-    public void setFechaHora(LocalDateTime fechaHora) {
+    // Constructor sin id (para insertar)
+    public Cita(LocalDateTime fechaHora, int mascotaId, String motivo, int estadoId) {
         this.fechaHora = fechaHora;
-    }
-
-    public String getMotivo() {
-        return motivo;
-    }
-
-    public void setMotivo(String motivo) {
+        this.mascotaId = mascotaId;
         this.motivo = motivo;
-    }
-
-    public int getEstadoId() {
-        return estadoId;
-    }
-
-    public void setEstadoId(int estadoId) {
         this.estadoId = estadoId;
     }
+
+    // getters y setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public LocalDateTime getFechaHora() { return fechaHora; }
+    public void setFechaHora(LocalDateTime fechaHora) { this.fechaHora = fechaHora; }
+
+    public int getMascotaId() { return mascotaId; }
+    public void setMascotaId(int mascotaId) { this.mascotaId = mascotaId; }
+
+    public String getMotivo() { return motivo; }
+    public void setMotivo(String motivo) { this.motivo = motivo; }
+
+    public int getEstadoId() { return estadoId; }
+    public void setEstadoId(int estadoId) { this.estadoId = estadoId; }
 
     @Override
     public String toString() {
         return "Cita{" +
                 "id=" + id +
+                ", fechaHora=" + fechaHora +
                 ", mascotaId=" + mascotaId +
-                ", fechaHora='" + fechaHora + '\'' +
                 ", motivo='" + motivo + '\'' +
                 ", estadoId=" + estadoId +
                 '}';

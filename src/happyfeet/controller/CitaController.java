@@ -22,8 +22,7 @@ public class CitaController {
 
     public CitaController(CitaView view) {
         this.view = view;
-        this.repository = new CitaDAO();
-        
+        this.repository = new CitaDAO(); // ahora existe el constructor por defecto
     }
 
     // Crear una nueva cita

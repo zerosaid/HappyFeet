@@ -36,11 +36,11 @@ public class MenuController {
         razaView.mostrarMenu();
     }
     
-    public void abrirGestionCitas() {
-    CitaView citaView = new CitaView();
-    CitaController controller = new CitaController(citaView);
-    citaView.setController(controller);
-    citaView.mostrarMenu();
-}
+     public void abrirGestionCitas() {
+        CitaView citaView = new CitaView();
+        CitaController citaController = new CitaController(citaView);
+        citaView.setController(citaController);  
+        citaView.mostrarMenu();
+    }
 
 }

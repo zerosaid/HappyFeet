@@ -29,28 +29,29 @@ public class CitaEstadoDAO implements ICitaEstadoRepository {
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.err.println("Error al agregar estado de cita: " + e.getMessage());
+            System.err.println("❌ Error al agregar estado: " + e.getMessage());
             return false;
         }
     }
 
     @Override
     public List<CitaEstado> obtenerTodos() {
-        List<CitaEstado> estados = new ArrayList<>();
+        List<CitaEstado> lista = new ArrayList<>();
         String sql = "SELECT * FROM cita_estados";
         try (Statement stmt = conexion.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
+
             while (rs.next()) {
                 CitaEstado estado = new CitaEstado(
                         rs.getInt("id"),
                         rs.getString("nombre")
                 );
-                estados.add(estado);
+                lista.add(estado);
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener estados de cita: " + e.getMessage());
+            System.err.println("❌ Error al obtener estados: " + e.getMessage());
         }
-        return estados;
+        return lista;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class CitaEstadoDAO implements ICitaEstadoRepository {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener estado de cita por ID: " + e.getMessage());
+            System.err.println("❌ Error al buscar estado por ID: " + e.getMessage());
         }
         return null;
     }
@@ -81,7 +82,7 @@ public class CitaEstadoDAO implements ICitaEstadoRepository {
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.err.println("Error al actualizar estado de cita: " + e.getMessage());
+            System.err.println("❌ Error al actualizar estado: " + e.getMessage());
             return false;
         }
     }
@@ -94,7 +95,7 @@ public class CitaEstadoDAO implements ICitaEstadoRepository {
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.err.println("Error al eliminar estado de cita: " + e.getMessage());
+            System.err.println("❌ Error al eliminar estado: " + e.getMessage());
             return false;
         }
     }
