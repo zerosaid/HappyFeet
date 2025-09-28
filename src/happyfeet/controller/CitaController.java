@@ -10,33 +10,32 @@ package happyfeet.controller;
  */
 
 import happyfeet.Model.Cita;
-import happyfeet.Repository.ICitaRepository;
-import happyfeet.Repository.CitaDAO;
+import happyfeet.service.CitaService;
 import happyfeet.view.CitaView;
 import java.util.List;
 
 public class CitaController {
 
     private final CitaView view;
-    private final ICitaRepository repository;
+    private final CitaService service;
 
     public CitaController(CitaView view) {
         this.view = view;
-        this.repository = new CitaDAO(); // ahora existe el constructor por defecto
+        this.service = new CitaService(); // el service ya maneja los DAO
     }
 
-    // Crear una nueva cita
+    // Crear una nueva cita con validaciones
     public void crearCita(Cita cita) {
-        if (repository.agregar(cita)) {
+        if (service.registrarCita(cita)) {
             view.mostrarMensaje("✅ Cita registrada exitosamente.");
         } else {
-            view.mostrarMensaje("❌ Error al registrar la cita.");
+            view.mostrarMensaje("❌ Error al registrar la cita. Revise las validaciones.");
         }
     }
 
     // Listar todas las citas
     public void listarCitas() {
-        List<Cita> citas = repository.obtenerTodas();
+        List<Cita> citas = service.obtenerTodas();
         if (citas.isEmpty()) {
             view.mostrarMensaje("⚠ No hay citas registradas.");
         } else {
@@ -46,7 +45,7 @@ public class CitaController {
 
     // Buscar cita por ID
     public void buscarCita(int id) {
-        Cita cita = repository.obtenerPorId(id);
+        Cita cita = service.obtenerPorId(id);
         if (cita != null) {
             view.mostrarCita(cita);
         } else {
@@ -54,18 +53,18 @@ public class CitaController {
         }
     }
 
-    // Actualizar cita
+    // Actualizar cita (también pasa por las validaciones del service)
     public void actualizarCita(Cita cita) {
-        if (repository.actualizar(cita)) {
+        if (service.actualizarCita(cita)) {
             view.mostrarMensaje("✅ Cita actualizada correctamente.");
         } else {
-            view.mostrarMensaje("❌ No se pudo actualizar la cita.");
+            view.mostrarMensaje("❌ No se pudo actualizar la cita. Revise las validaciones.");
         }
     }
 
     // Eliminar cita
     public void eliminarCita(int id) {
-        if (repository.eliminar(id)) {
+        if (service.eliminarCita(id)) {
             view.mostrarMensaje("✅ Cita eliminada correctamente.");
         } else {
             view.mostrarMensaje("❌ No se pudo eliminar la cita.");
