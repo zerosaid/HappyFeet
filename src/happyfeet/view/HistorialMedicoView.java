@@ -4,8 +4,10 @@
  */
 package happyfeet.view;
 
+import happyfeet.Model.EventoTipo;
 import happyfeet.controller.HistorialMedicoController;
 import happyfeet.Model.HistorialMedico;
+import happyfeet.Repository.EventoTipoDAO;
 import java.util.List;
 import java.util.Scanner;
 /**
@@ -64,6 +66,20 @@ public class HistorialMedicoView {
             System.out.print("Fecha del evento (YYYY-MM-DD): ");
             String fechaEvento = scanner.nextLine();
 
+            // 🔹 Mostrar lista de eventos antes de pedir el ID
+            EventoTipoDAO eventoTipoDAO = new EventoTipoDAO();
+            List<EventoTipo> eventos = eventoTipoDAO.obtenerTodos();
+
+            if (eventos.isEmpty()) {
+                System.out.println("⚠️ No hay tipos de eventos registrados en la base de datos.");
+                return;
+            }
+
+            System.out.println("\n📋 Lista de Tipos de Eventos:");
+            for (EventoTipo e : eventos) {
+                System.out.println("ID: " + e.getId() + " | Nombre: " + e.getNombreEvento());
+            }
+
             System.out.print("ID Tipo de evento: ");
             int eventoTipoId = Integer.parseInt(scanner.nextLine());
 
@@ -81,6 +97,7 @@ public class HistorialMedicoView {
             System.out.println("❌ Error al registrar historial médico: " + e.getMessage());
         }
     }
+
 
     private void buscarHistorialPorId() {
         System.out.print("Ingrese el ID del historial: ");
