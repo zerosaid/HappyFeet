@@ -361,3 +361,20 @@ INSERT INTO duenos (
 ('Beatriz Torres', '66778899H', 'Calle Viento 505, Ciudad S', '913456789', 'beatriz.torres@email.com'),
 ('Raúl González', '77889900I', 'Calle Nieve 606, Ciudad R', '914567890', 'raul.gonzalez@email.com'),
 ('Susana Morales', '88990011J', 'Calle Cielo 707, Ciudad Q', '915678901', 'susana.morales@email.com');
+
+CREATE TABLE adoptantes (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    telefono VARCHAR(15),
+    email VARCHAR(100)
+);
+
+CREATE TABLE contratos_adopcion (
+    id INT PRIMARY KEY,
+    id_mascota INT,
+    id_adoptante INT,
+    fecha_adopcion DATE,
+    contrato_texto TEXT,
+    FOREIGN KEY(id_mascota) REFERENCES mascotas(id),
+    FOREIGN KEY(id_adoptante) REFERENCES adoptantes(id)
+);
