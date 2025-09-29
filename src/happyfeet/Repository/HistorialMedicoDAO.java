@@ -63,6 +63,22 @@ public class HistorialMedicoDAO implements IHistorialMedicoRepository {
         }
         return lista;
     }
+    
+    public List<HistorialMedico> listarPorMascota(int mascotaId) {
+        List<HistorialMedico> lista = new ArrayList<>();
+        String sql = "SELECT * FROM historial_medico WHERE mascota_id = ?";
+        try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            stmt.setInt(1, mascotaId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(mapResultSetToHistorial(rs));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Error al listar historiales por mascota: " + e.getMessage());
+        }
+        return lista;
+    }
 
     @Override
     public HistorialMedico obtenerPorId(int id) {

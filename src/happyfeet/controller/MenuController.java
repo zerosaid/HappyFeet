@@ -6,6 +6,7 @@ package happyfeet.controller;
 
 import happyfeet.view.CitaView;
 import happyfeet.view.DuenoView;
+import happyfeet.view.HistorialMedicoView;
 import happyfeet.view.MascotaView;
 import happyfeet.view.RazaView;
 
@@ -41,6 +42,13 @@ public class MenuController {
         CitaController citaController = new CitaController(citaView);
         citaView.setController(citaController);  
         citaView.mostrarMenu();
+    }
+     
+     public void abrirGestionHistorialMedico() {
+        HistorialMedicoView historialView = new HistorialMedicoView();
+        HistorialMedicoController historialController = new HistorialMedicoController(historialView);
+        historialView.setController(historialController);
+        historialView.mostrarMenu();
     }
 
 }
