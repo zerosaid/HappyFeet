@@ -241,3 +241,58 @@ INSERT INTO duenos (
 ('Beatriz Torres', '66778899H', 'Calle Viento 505, Ciudad S', '913456789', 'beatriz.torres@email.com'),
 ('Raúl González', '77889900I', 'Calle Nieve 606, Ciudad R', '914567890', 'raul.gonzalez@email.com'),
 ('Susana Morales', '88990011J', 'Calle Cielo 707, Ciudad Q', '915678901', 'susana.morales@email.com');
+
+*-- Inserciones en la tabla especies
+INSERT INTO especies (id, nombre) VALUES
+(1, 'Perro'),
+(2, 'Gato'),
+(3, 'Ave'),
+(4, 'Reptil'),
+(5, 'Roedor');
+
+-- Inserciones en la tabla razas
+INSERT INTO razas (id, especie_id, nombre) VALUES
+(1, 1, 'Labrador Retriever'),
+(2, 1, 'Pastor Alemán'),
+(3, 1, 'Bulldog'),
+(4, 1, 'Golden Retriever'),
+(5, 1, 'Chihuahua'),
+(6, 2, 'Persa'),
+(7, 2, 'Siamés'),
+(8, 2, 'Maine Coon'),
+(9, 2, 'Bengalí'),
+(10, 2, 'Esfinge'),
+(11, 3, 'Canario'),
+(12, 3, 'Periquito'),
+(13, 3, 'Cacatúa'),
+(14, 4, 'Iguana'),
+(15, 4, 'Camaleón'),
+(16, 4, 'Serpiente Pitón'),
+(17, 5, 'Hamster'),
+(18, 5, 'Cobayo'),
+(19, 5, 'Rata'),
+(20, 5, 'Ratón');
+
+
+INSERT INTO cita_estados (id, nombre) VALUES
+(1, 'Pendiente'),
+(2, 'Confirmada'),
+(3, 'Cancelada'),
+(4, 'Completada');
+
+-- Inserciones para eventos veterinarios
+INSERT INTO evento_tipos (id, nombre) VALUES (1, 'Consulta general');
+INSERT INTO evento_tipos (id, nombre) VALUES (2, 'Vacunación');
+INSERT INTO evento_tipos (id, nombre) VALUES (3, 'Desparasitación');
+INSERT INTO evento_tipos (id, nombre) VALUES (4, 'Cirugía');
+INSERT INTO evento_tipos (id, nombre) VALUES (5, 'Control postoperatorio');
+INSERT INTO evento_tipos (id, nombre) VALUES (6, 'Hospitalización');
+INSERT INTO evento_tipos (id, nombre) VALUES (7, 'Examen de laboratorio');
+INSERT INTO evento_tipos (id, nombre) VALUES (8, 'Control de peso');
+INSERT INTO evento_tipos (id, nombre) VALUES (9, 'Urgencia');
+INSERT INTO evento_tipos (id, nombre) VALUES (10, 'Chequeo anual');
+INSERT INTO evento_tipos (id, nombre) VALUES (11, 'Terapia física');
+INSERT INTO evento_tipos (id, nombre) VALUES (12, 'Baño medicado');
+INSERT INTO evento_tipos (id, nombre) VALUES (13, 'Esterilización');
+INSERT INTO evento_tipos (id, nombre) VALUES (14, 'Implantación de microchip');
+INSERT INTO evento_tipos (id, nombre) VALUES (15, 'Consulta especializada');
