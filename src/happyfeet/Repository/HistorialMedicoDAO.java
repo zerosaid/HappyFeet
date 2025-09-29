@@ -8,6 +8,119 @@ package happyfeet.Repository;
  *
  * @author Prog. Junior Daniel
  */
-public class HistorialMedicoDAO {
-    
+
+
+import happyfeet.Model.HistorialMedico;
+import happyfeet.util.conexionBD;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class HistorialMedicoDAO implements IHistorialMedicoRepository {
+
+    private final Connection conexion;
+
+    public HistorialMedicoDAO() {
+        this.conexion = conexionBD.getConnection();
+    }
+
+    @Override
+    public boolean agregar(HistorialMedico historial) {
+        String sql = "INSERT INTO historial_medico (mascota_id, fecha_evento, evento_tipo_id, descripcion, diagnostico, tratamiento_recomendado) "
+                   + "VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            stmt.setInt(1, historial.getMascotaId());
+            stmt.setDate(2, Date.valueOf(historial.getFechaEvento()));
+            stmt.setInt(3, historial.getEventoTipoId());
+            stmt.setString(4, historial.getDescripcion());
+            stmt.setString(5, historial.getDiagnostico());
+            stmt.setString(6, historial.getTratamientoRecomendado());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("❌ Error al agregar historial médico: " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public List<HistorialMedico> obtenerTodos() {
+        List<HistorialMedico> lista = new ArrayList<>();
+        String sql = "SELECT * FROM historial_medico";
+        try (Statement stmt = conexion.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                lista.add(mapResultSetToHistorial(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Error al obtener historiales médicos: " + e.getMessage());
+        }
+        return lista;
+    }
+
+    @Override
+    public HistorialMedico obtenerPorId(int id) {
+        String sql = "SELECT * FROM historial_medico WHERE id = ?";
+        try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSetToHistorial(rs);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Error al buscar historial médico: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public boolean actualizar(HistorialMedico historial) {
+        String sql = "UPDATE historial_medico SET mascota_id=?, fecha_evento=?, evento_tipo_id=?, descripcion=?, diagnostico=?, tratamiento_recomendado=? "
+                   + "WHERE id=?";
+        try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            stmt.setInt(1, historial.getMascotaId());
+            stmt.setDate(2, Date.valueOf(historial.getFechaEvento()));
+            stmt.setInt(3, historial.getEventoTipoId());
+            stmt.setString(4, historial.getDescripcion());
+            stmt.setString(5, historial.getDiagnostico());
+            stmt.setString(6, historial.getTratamientoRecomendado());
+            stmt.setInt(7, historial.getId());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("❌ Error al actualizar historial médico: " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean eliminar(int id) {
+        String sql = "DELETE FROM historial_medico WHERE id = ?";
+        try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("❌ Error al eliminar historial médico: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // 🔹 Método auxiliar para mapear ResultSet → HistorialMedico
+    private HistorialMedico mapResultSetToHistorial(ResultSet rs) throws SQLException {
+        return new HistorialMedico(
+                rs.getInt("id"),
+                rs.getInt("mascota_id"),
+                rs.getDate("fecha_evento").toLocalDate(),
+                rs.getInt("evento_tipo_id"),
+                rs.getString("descripcion"),
+                rs.getString("diagnostico"),
+                rs.getString("tratamiento_recomendado")
+        );
+    }
 }
