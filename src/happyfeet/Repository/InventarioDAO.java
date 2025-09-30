@@ -132,25 +132,8 @@ public class InventarioDAO {
         return productos;
     }
 
-    // ✅ Mapear ResultSet a Producto
-    private static Producto mapearProducto(ResultSet rs) throws SQLException {
-        return new Producto(
-                rs.getInt("id"),
-                rs.getString("nombre_producto"),
-                rs.getInt("producto_tipo_id"),
-                rs.getString("descripcion"),
-                rs.getString("fabricante"),
-                rs.getString("lote"),
-                rs.getInt("cantidad_stock"),
-                rs.getInt("stock_minimo"),
-                rs.getDate("fecha_vencimiento"),
-                rs.getDouble("precio_venta"),
-                rs.getInt("producto_subcategoria_id")
-        );
-    }
-
     // ✅ Obtener todos los productos
-    public static List<Producto> obtenerTodos() {
+    public List<Producto> obtenerTodos() {
         List<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM inventario";
 
@@ -190,7 +173,7 @@ public class InventarioDAO {
         return producto;
     }
 
-    // ⚡ Aquí dejaría solo la versión con `Factura` para insertar
+    // ✅ Insertar factura (devuelve ID generado)
     public int insertarFactura(Factura factura) {
         String sql = "INSERT INTO facturas (dueno_id, fecha_emision, total) VALUES (?, ?, ?)";
 
@@ -214,5 +197,22 @@ public class InventarioDAO {
             System.err.println("❌ Error al insertar factura: " + e.getMessage());
         }
         return -1;
+    }
+
+    // 🔹 Método privado para mapear ResultSet a Producto
+    private Producto mapearProducto(ResultSet rs) throws SQLException {
+        return new Producto(
+                rs.getInt("id"),
+                rs.getString("nombre_producto"),
+                rs.getInt("producto_tipo_id"),
+                rs.getString("descripcion"),
+                rs.getString("fabricante"),
+                rs.getString("lote"),
+                rs.getInt("cantidad_stock"),
+                rs.getInt("stock_minimo"),
+                rs.getDate("fecha_vencimiento"),
+                rs.getDouble("precio_venta"),
+                rs.getInt("producto_subcategoria_id")
+        );
     }
 }
