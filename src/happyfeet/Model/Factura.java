@@ -1,8 +1,15 @@
-package Happy_Feet.bd.model;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package happyfeet.Model;
 
 import java.util.Date;
 import java.util.List;
-
+/**
+ *
+ * @author Prog. Junior Daniel
+ */
 public class Factura {
     private int id;
     private int duenoId;        // ✅ Coincide con la BD (dueno_id)

@@ -14,17 +14,17 @@ import java.util.List;
 public interface IHistorialMedicoRepository {
 
     // Crear un registro en historial médico
-    boolean agregar(HistorialMedico historial);
+    void crear(HistorialMedico historial);
 
     // Obtener todos los historiales médicos
-    List<HistorialMedico> obtenerTodos();
+    List<HistorialMedico> listarTodos();
 
     // Obtener historial médico por ID
-    HistorialMedico obtenerPorId(int id);
+    HistorialMedico obtenerPorId(int idHistorial);
 
     // Actualizar un historial médico existente
-    boolean actualizar(HistorialMedico historial);
+    void actualizar(HistorialMedico historial);
 
     // Eliminar un historial médico por ID
-    boolean eliminar(int id);
+    void eliminar(int idHistorial);
 }

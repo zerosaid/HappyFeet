@@ -38,11 +38,9 @@ public class HistorialMedicoController {
                     tratamiento
             );
 
-            if (historialMedicoDAO.agregar(historial)) {
-                view.mostrarMensaje("✅ Historial médico registrado correctamente.");
-            } else {
-                view.mostrarMensaje("❌ Error al registrar el historial médico.");
-            }
+            historialMedicoDAO.crear(historial);
+            view.mostrarMensaje("✅ Historial médico registrado correctamente.");
+
         } catch (Exception e) {
             view.mostrarMensaje("❌ Error en los datos ingresados: " + e.getMessage());
         }
@@ -50,20 +48,28 @@ public class HistorialMedicoController {
 
     // Listar todos los historiales
     public void listarHistoriales() {
-        List<HistorialMedico> lista = historialMedicoDAO.obtenerTodos();
+        List<HistorialMedico> lista = historialMedicoDAO.listarTodos();
         view.mostrarHistoriales(lista);
     }
 
     // Buscar historial por ID
     public void buscarHistorialPorId(int id) {
         HistorialMedico historial = historialMedicoDAO.obtenerPorId(id);
-        view.mostrarHistorial(historial);
+        if (historial != null) {
+            view.mostrarHistorial(historial);
+        } else {
+            view.mostrarMensaje("⚠️ No se encontró el historial con ID " + id);
+        }
     }
 
     // Listar historiales por mascota
     public void listarHistorialesPorMascota(int mascotaId) {
         List<HistorialMedico> lista = historialMedicoDAO.listarPorMascota(mascotaId);
-        view.mostrarHistoriales(lista);
+        if (lista.isEmpty()) {
+            view.mostrarMensaje("⚠️ No hay historiales para la mascota con ID " + mascotaId);
+        } else {
+            view.mostrarHistoriales(lista);
+        }
     }
 
     // Actualizar historial médico
@@ -79,19 +85,20 @@ public class HistorialMedicoController {
         historial.setDiagnostico(diagnostico);
         historial.setTratamientoRecomendado(tratamiento);
 
-        if (historialMedicoDAO.actualizar(historial)) {
-            view.mostrarMensaje("✅ Historial actualizado correctamente.");
-        } else {
-            view.mostrarMensaje("❌ Error al actualizar el historial médico.");
-        }
+        historialMedicoDAO.actualizar(historial);
+        view.mostrarMensaje("✅ Historial actualizado correctamente.");
     }
 
     // Eliminar historial médico
     public void eliminarHistorial(int id) {
-        if (historialMedicoDAO.eliminar(id)) {
-            view.mostrarMensaje("✅ Historial eliminado correctamente.");
-        } else {
-            view.mostrarMensaje("❌ No se pudo eliminar el historial con ID " + id);
+        HistorialMedico historial = historialMedicoDAO.obtenerPorId(id);
+
+        if (historial == null) {
+            view.mostrarMensaje("⚠️ No se encontró el historial con ID " + id);
+            return;
         }
+
+        historialMedicoDAO.eliminar(id);
+        view.mostrarMensaje("✅ Historial eliminado correctamente.");
     }
 }
